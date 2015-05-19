@@ -1,0 +1,72 @@
+postfix:
+  build: postfix
+  env_file: .env
+  volumes:
+    - data/ssl:/home/data/ssl
+    - data/mail:/home/data/mail
+  links:
+    - postgrey
+    - dovecot
+    - spamassassin
+  ports:
+    - "25:25"
+    - "587:587"
+
+postgrey:
+  build: postgrey
+
+dovecot:
+  build: dovecot
+  environment:
+    # FIXME Find a way to get this working with links instead
+    SPAMASSASSIN_1_PORT_10025_TCP_ADDR: 172.17.42.1
+  env_file:
+    - .doveadm_password
+  volumes:
+    - data/ssl:/home/data/ssl
+    - data/mail:/home/data/mail
+    ## FIXME Don't do this
+    #- data/dovecot-run:/var/run/dovecot
+  # FIXME Find a way to get this working with links instead
+  #links:
+    #- spamassassin
+  ports:
+    - "993:993"
+
+spamassassin:
+  build: spamassassin
+  volumes:
+    - data/mail/spamassassin:/home/data/mail/spamassassin
+  links:
+    - dovecot
+  # Make it accessible for spamc from dovecot
+  # FIXME Find a way to get this working with links instead
+  ports:
+    - "172.17.42.1:10025:10025"
+
+management:
+  build: management
+  environment:
+    DEBUG: 1
+  env_file: .doveadm_password
+  volumes:
+    - data/mail:/home/data/mail
+    - data/mailinabox:/var/lib/mailinabox
+    - data/ssl:/home/data/ssl
+    ## FIXME Don't do this
+    #- data/dovecot-run:/var/run/dovecot
+  links:
+    - dovecot
+  ports:
+    # FIXME Remove when reverse proxy is there
+    - "10222:10222"
+
+setup:
+  build: setup
+  env_file: .env
+  volumes:
+    - data/ssl:/home/data/ssl
+    - data/mailinabox:/var/lib/mailinabox
+  links:
+    - management
+  command: /bin/true

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+array=( $@ )
+len=${#array[@]}
+args=${array[@]:2:$len-1}
+
+if [ "$1" == "mailbox" ]; then
+  exec /usr/bin/doveadm-original mailbox $2 -S dovecot:1234 $args
+else
+  exec /usr/bin/doveadm-original $*
+fi

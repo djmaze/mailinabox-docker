@@ -1,0 +1,11 @@
+FROM ubuntu:14.04
+
+RUN apt-get update
+
+ENV TOOLS_DIR=/build/tools
+#COPY .env /tmp/build/.env
+COPY tools $TOOLS_DIR
+COPY syslog-stdout.py /usr/local/bin/syslog-stdout.py
+
+ENV STORAGE_ROOT /home/data
+ENV DB_PATH ${STORAGE_ROOT}/mail/users.sqlite
