@@ -8,8 +8,8 @@ The first version provides basic functionality only. It uses external DNS and pr
 ## Getting started
 
 * Copy `.env.sample` to``.env` and edit it. Enter a primary hostname for the mail service and a primary email address. The user created will have administrative privileges.
-* Run `make base` in order to build the base image needed for all containers.
-* Run `docker-compose run setup`. You will be asked for a password which will be set for the user.
+* Cd into the `base` folder and run `make` in order to build the base image needed for all containers.
+* In the main directory, run `docker-compose run setup`. You will be asked for a password which will be set for the user.
 
 Run `docker-compose up -d` in order to start all services.
 
