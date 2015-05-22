@@ -1,3 +1,4 @@
 .doveadm_password
 .env
 data
+log

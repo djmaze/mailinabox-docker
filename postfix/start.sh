@@ -47,5 +47,4 @@ $TOOLS_DIR/editconf.py /etc/postfix/main.cf \
 	smtpd_sender_restrictions="reject_non_fqdn_sender,reject_unknown_sender_domain,reject_rhsbl_sender dbl.spamhaus.org" \
 	smtpd_recipient_restrictions=permit_sasl_authenticated,permit_mynetworks,"reject_rbl_client zen.spamhaus.org",reject_unlisted_recipient,"check_policy_service inet:$POSTGREY_1_PORT_10023_TCP_ADDR:10023"
 
-syslog-stdout.py &
 exec /usr/lib/postfix/master -d
