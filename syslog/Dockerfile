@@ -1,6 +1,6 @@
 FROM ubuntu:14.04
 
-RUN apt-get update -q
+RUN apt-get update
 RUN apt-get install rsyslog
 
 RUN groupadd -g 1000 user \
