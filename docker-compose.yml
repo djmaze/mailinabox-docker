@@ -67,9 +67,11 @@ opendmarc:
 
 management:
   build: management
+  env_file:
+    - .env
+    - .doveadm_password
   environment:
     DEBUG: 1
-  env_file: .doveadm_password
   volumes:
     - data/mail:/home/data/mail
     - data/mailinabox:/var/lib/mailinabox
