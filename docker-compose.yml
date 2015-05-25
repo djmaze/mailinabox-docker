@@ -10,6 +10,8 @@ postfix:
     - postgrey
     - dovecot
     - spamassassin
+    - opendkim
+    - opendmarc
   ports:
     - "25:25"
     - "587:587"
@@ -51,6 +53,17 @@ spamassassin:
   # FIXME Find a way to get this working with links instead
   ports:
     - "172.17.42.1:10025:10025"
+
+opendkim:
+  build: opendkim
+  volumes:
+    - data/mail/dkim:/home/data/mail/dkim
+    - /tmp/syslogdev/log:/dev/log
+
+opendmarc:
+  build: opendmarc
+  volumes:
+    - /tmp/syslogdev/log:/dev/log
 
 management:
   build: management

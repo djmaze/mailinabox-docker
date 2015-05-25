@@ -47,4 +47,21 @@ $TOOLS_DIR/editconf.py /etc/postfix/main.cf \
 	smtpd_sender_restrictions="reject_non_fqdn_sender,reject_unknown_sender_domain,reject_rhsbl_sender dbl.spamhaus.org" \
 	smtpd_recipient_restrictions=permit_sasl_authenticated,permit_mynetworks,"reject_rbl_client zen.spamhaus.org",reject_unlisted_recipient,"check_policy_service inet:$POSTGREY_1_PORT_10023_TCP_ADDR:10023"
 
+# Add OpenDKIM and OpenDMARC as milters to postfix, which is how OpenDKIM
+# intercepts outgoing mail to perform the signing (by adding a mail header)
+# and how they both intercept incoming mail to add Authentication-Results
+# headers. The order possibly/probably matters: OpenDMARC relies on the
+# OpenDKIM Authentication-Results header already being present.
+#
+# Be careful. If we add other milters later, this needs to be concatenated
+# on the smtpd_milters line.
+#
+# The OpenDMARC milter is skipped in the SMTP submission listener by
+# configuring smtpd_milters there to only list the OpenDKIM milter
+# (see mail-postfix.sh).
+$TOOLS_DIR/editconf.py /etc/postfix/main.cf \
+  "smtpd_milters=inet:$OPENDKIM_1_PORT_8891_TCP_ADDR:8891 inet:$OPENDMARC_1_PORT_8893_TCP_ADDR:8893"\
+  non_smtpd_milters=\$smtpd_milters \
+  milter_default_action=accept
+
 exec /usr/lib/postfix/master -d
