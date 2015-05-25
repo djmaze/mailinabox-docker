@@ -27,10 +27,6 @@ $TOOLS_DIR/editconf.py /etc/dovecot/conf.d/10-mail.conf \
 	mail_privileged_group=mail \
 	first_valid_uid=0
 
-# Set the logging to stderr (for Docker)
-$TOOLS_DIR/editconf.py /etc/dovecot/conf.d/10-logging.conf \
-  log_path=/dev/stderr
-
 # ### IMAP/POP
 
 # Require that passwords are sent over SSL only, and allow the usual IMAP authentication mechanisms.

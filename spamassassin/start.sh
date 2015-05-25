@@ -11,5 +11,4 @@ sudo -u spampd /usr/bin/sa-learn --sync 2>/dev/null
 # sa-learn --ham storage/mail/mailboxes/*/*/cur/
 # sa-learn --spam storage/mail/mailboxes/*/*/.Spam/cur/
 
-syslog-stdout.py &
 exec spampd --nodetach --user=spampd --group=spampd --host=0.0.0.0 --relayhost=dovecot --relayport=10026 --maxsize=500 --tagall --L
