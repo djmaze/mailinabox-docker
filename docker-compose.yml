@@ -69,6 +69,7 @@ management:
 
 syslog:
   build: syslog
+  env_file: .env
   volumes:
     - /tmp/syslogdev:/dev
     - log:/var/log

@@ -15,7 +15,9 @@ The first version provides basic functionality only. It uses external DNS and pr
 
 Run `docker-compose up -d` in order to start all services.
 
-Use `docker-compose ps` to see which services are running. You can inspect the logs with `docker-compose logs`.
+Use `docker-compose ps` to see which services are running.
+
+The logs are written to the `log` subdirectory. You can optionally set the `SYSLOG_SERVER` variable in `.env` in order to route logs to a remote syslog server.
 
 ## Updating the containers
 
