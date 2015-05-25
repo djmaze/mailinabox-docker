@@ -6,6 +6,7 @@ postfix:
     - data/mail:/home/data/mail
     - /tmp/syslogdev:/dev
   links:
+    - syslog
     - postgrey
     - dovecot
     - spamassassin
@@ -31,8 +32,9 @@ dovecot:
     - /tmp/syslogdev/log:/dev/log
     ## FIXME Don't do this
     #- data/dovecot-run:/var/run/dovecot
-  # FIXME Find a way to get this working with links instead
-  #links:
+  links:
+    - syslog
+    # FIXME Find a way to get this working with links instead
     #- spamassassin
   ports:
     - "993:993"
@@ -43,6 +45,7 @@ spamassassin:
     - data/mail/spamassassin:/home/data/mail/spamassassin
     - /tmp/syslogdev/log:/dev/log
   links:
+    - syslog
     - dovecot
   # Make it accessible for spamc from dovecot
   # FIXME Find a way to get this working with links instead
@@ -62,6 +65,7 @@ management:
     ## FIXME Don't do this
     #- data/dovecot-run:/var/run/dovecot
   links:
+    - syslog
     - dovecot
   ports:
     # FIXME Remove when reverse proxy is there
@@ -81,5 +85,6 @@ setup:
     - data/ssl:/home/data/ssl
     - data/mailinabox:/var/lib/mailinabox
   links:
+    - syslog
     - management
   command: /bin/true
