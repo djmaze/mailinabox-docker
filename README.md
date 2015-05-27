@@ -10,6 +10,7 @@ The first version provides basic functionality only. It uses external DNS and pr
 (Use `sudo` as needed on your system in order to run Docker related commands.)
 
 * Copy `.env.sample` to``.env` and edit it. Enter a primary hostname for the mail service and a primary email address. The user created will have administrative privileges.
+* Copy `.doveadm_password.sample` to `.doveadm_password` and set a random password.
 * Cd into the `base` folder and run `make` in order to build the base image needed for all containers.
 * In the main directory, run `docker-compose run setup`. You will be asked for a password which will be set for the user.
 
