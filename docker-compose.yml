@@ -20,6 +20,8 @@ postgrey:
   build: postgrey
   volumes:
     - /tmp/syslogdev/log:/dev/log
+  links:
+    - syslog
 
 dovecot:
   build: dovecot
@@ -59,11 +61,15 @@ opendkim:
   volumes:
     - data/mail/dkim:/home/data/mail/dkim
     - /tmp/syslogdev/log:/dev/log
+  links:
+    - syslog
 
 opendmarc:
   build: opendmarc
   volumes:
     - /tmp/syslogdev/log:/dev/log
+  links:
+    - syslog
 
 management:
   build: management
