@@ -1,7 +1,7 @@
 FROM mailinabox-docker-base
 
 RUN apt-get update
-RUN apt-get -y install python3-flask links duplicity libyaml-dev python3-dnspython python3-dateutil python3-pip git dovecot-core
+RUN apt-get -y install python3-flask links duplicity libyaml-dev python3-dnspython python3-dateutil python3-pip git dovecot-core ldnsutils
 
 # Check out latest management app source code
 RUN git clone --single-branch https://github.com/mail-in-a-box/mailinabox.git /usr/local/mailinabox

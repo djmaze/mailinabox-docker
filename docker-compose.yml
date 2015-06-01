@@ -78,6 +78,7 @@ management:
     DEBUG: 1
   volumes:
     - data/etc/opendkim:/etc/opendkim
+    - data/dns:/home/data/dns
     - data/mail:/home/data/mail
     - data/doveadm:/home/data/doveadm
     - data/mailinabox:/var/lib/mailinabox
@@ -106,3 +107,5 @@ setup:
   volumes:
     - data/ssl:/home/data/ssl
     - data/doveadm:/home/data/doveadm
+    - data/dns:/home/data/dns
+    - /dev/urandom:/dev/random
