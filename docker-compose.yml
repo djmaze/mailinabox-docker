@@ -58,6 +58,7 @@ spamassassin:
 opendkim:
   build: opendkim
   volumes:
+    - data/etc/opendkim:/etc/opendkim
     - data/mail/dkim:/home/data/mail/dkim
     - /tmp/syslogdev/log:/dev/log
   links:
@@ -76,6 +77,7 @@ management:
   environment:
     DEBUG: 1
   volumes:
+    - data/etc/opendkim:/etc/opendkim
     - data/mail:/home/data/mail
     - data/doveadm:/home/data/doveadm
     - data/mailinabox:/var/lib/mailinabox
@@ -86,6 +88,7 @@ management:
   links:
     - syslog
     - dovecot
+    - opendkim
   ports:
     # FIXME Remove when reverse proxy is there
     - "10222:10222"

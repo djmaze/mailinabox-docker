@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Used in InternalHosts and ExternalIgnoreList configuration directives.
+# Not quite sure why.
+echo "127.0.0.1" > /etc/opendkim/TrustedHosts
+
 mkdir -p $STORAGE_ROOT/mail/dkim
 
 # Create a new DKIM key. This creates
