@@ -3,4 +3,3 @@ set -e
 
 ./general.sh
 ./ssl.sh
-./mail.sh

@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+EMAIL_ADDR=$1
+
 source $TOOLS_DIR/functions.sh
 
 # Create the user's mail account. This will ask for a password if none was given above.

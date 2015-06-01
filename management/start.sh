@@ -10,4 +10,9 @@ EOF
 # FIXME Put only needed in variables in mailinabox.conf. Even better, get rid of that extra file!
 env >/etc/mailinabox.conf
 
-exec /usr/local/bin/mailinabox-daemon
+if [ "$1" ]; then
+  (/usr/local/bin/mailinabox-daemon 2>&1 | logger -p mail.debug) &
+  exec $*
+else
+  exec /usr/local/bin/mailinabox-daemon
+fi

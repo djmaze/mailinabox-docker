@@ -4,7 +4,7 @@ import sys, getpass, urllib.request, urllib.error, json, re
 
 def mgmt(cmd, data=None, is_json=False):
 	# The base URL for the management daemon. (Listens on IPv4 only.)
-	mgmt_uri = 'http://management:10222'
+	mgmt_uri = 'http://localhost:10222'
 
 	setup_key_auth(mgmt_uri)
 

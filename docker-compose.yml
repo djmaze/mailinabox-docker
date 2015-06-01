@@ -102,9 +102,4 @@ setup:
   env_file: .env
   volumes:
     - data/ssl:/home/data/ssl
-    - data/mailinabox:/var/lib/mailinabox
     - data/doveadm:/home/data/doveadm
-  links:
-    - syslog
-    - management
-  command: /bin/true

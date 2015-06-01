@@ -12,6 +12,9 @@ RUN $TOOLS_DIR/setup.sh
 RUN mv /usr/bin/doveadm /usr/bin/doveadm-original
 COPY doveadm-wrapper /usr/bin/doveadm
 
+COPY mail.py $TOOLS_DIR/
+COPY add-initial-user /usr/local/bin/
+
 COPY start.sh /
 ENTRYPOINT ["/start.sh"]
 EXPOSE 10222/tcp
