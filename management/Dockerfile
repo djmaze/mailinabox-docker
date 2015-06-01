@@ -15,6 +15,9 @@ COPY doveadm-wrapper /usr/bin/doveadm
 COPY mail.py $TOOLS_DIR/
 COPY add-initial-user /usr/local/bin/
 
+COPY service /usr/sbin/service
+RUN sed -i "s/\$NSDW_LISTEN_PORT/${NSDW_LISTEN_PORT}/" /usr/sbin/service
+
 COPY start.sh /
 ENTRYPOINT ["/start.sh"]
 EXPOSE 10222/tcp

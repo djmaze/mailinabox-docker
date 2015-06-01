@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+
+SERVICE=$1
+COMMAND=$2
+
+if [ $COMMAND = "restart" ]; then
+  SIGNAL=USR1
+fi
+
+case $SERVICE in
+esac
+
+if [[ $HOST && $SIGNAL ]]; then
+  echo $SIGNAL | nc $HOST $NSDW_LISTEN_PORT
+else
+  echo "TODO service $SERVICE $COMMAND" >&2
+  #exit 1
+fi
