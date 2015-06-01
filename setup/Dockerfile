@@ -2,6 +2,7 @@ FROM mailinabox-docker-base
 
 RUN apt-get -y install openssl
 
+COPY general.sh /
 COPY ssl.sh /
 COPY mail.sh /
 COPY start.sh /

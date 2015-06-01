@@ -1,14 +1,15 @@
 #!/bin/bash
 
+source $STORAGE_ROOT/doveadm/password.env
+
 # Setting a `postmaster_address` is required or LMTP won't start. An alias
 # will be created automatically by our management daemon.
 $TOOLS_DIR/editconf.py /etc/dovecot/conf.d/15-lda.conf \
 	postmaster_address=postmaster@$PRIMARY_HOSTNAME
 
 # Configure doveadm password (for remote access)
-cat >> /etc/dovecot/conf.d/99-remote-doveadm.conf << EOF;
-doveadm_password = $DOVEADM_PASSWORD
-EOF
+$TOOLS_DIR/editconf.py /etc/dovecot/conf.d/99-remote-doveadm.conf \
+  doveadm_password=$DOVEADM_PASSWORD
 
 # Create an empty database if it doesn't yet exist.
 if [ ! -f $DB_PATH ]; then

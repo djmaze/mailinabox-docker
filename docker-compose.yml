@@ -28,11 +28,10 @@ dovecot:
   environment:
     # FIXME Find a way to get this working with links instead
     SPAMASSASSIN_1_PORT_10025_TCP_ADDR: 172.17.42.1
-  env_file:
-    - .doveadm_password
   volumes:
     - data/ssl:/home/data/ssl
     - data/mail:/home/data/mail
+    - data/doveadm:/home/data/doveadm
     - /tmp/syslogdev/log:/dev/log
     ## FIXME Don't do this
     #- data/dovecot-run:/var/run/dovecot
@@ -73,13 +72,12 @@ opendmarc:
 
 management:
   build: management
-  env_file:
-    - .env
-    - .doveadm_password
+  env_file: .env
   environment:
     DEBUG: 1
   volumes:
     - data/mail:/home/data/mail
+    - data/doveadm:/home/data/doveadm
     - data/mailinabox:/var/lib/mailinabox
     - data/ssl:/home/data/ssl
     - /tmp/syslogdev/log:/dev/log
@@ -105,6 +103,7 @@ setup:
   volumes:
     - data/ssl:/home/data/ssl
     - data/mailinabox:/var/lib/mailinabox
+    - data/doveadm:/home/data/doveadm
   links:
     - syslog
     - management
