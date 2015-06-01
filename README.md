@@ -10,9 +10,9 @@ The first version provides basic functionality only. It uses external DNS and pr
 (Use `sudo` as needed on your system in order to run Docker related commands.)
 
 * Copy `.env.sample` to``.env` and edit it. Enter a primary hostname for the mail service and a primary email address. The user created will have administrative privileges.
-* Copy `.doveadm_password.sample` to `.doveadm_password` and set a random password.
 * Cd into the `base` folder and run `make` in order to build the base image needed for all containers.
-* In the main directory, run `docker-compose run setup`. You will be asked for a password which will be set for the user.
+* Back in the main folder, run `docker-compose run setup`. It will generate SSL key, cert and dovecot password.
+* Run `docker-compose run management add-initial-user` in order to add an initial mail user with admin privileges. You will be asked for the email address and password to create.
 
 Run `docker-compose up -d` in order to start all services.
 
