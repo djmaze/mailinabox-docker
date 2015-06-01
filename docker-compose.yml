@@ -4,7 +4,7 @@ postfix:
   volumes:
     - data/ssl:/home/data/ssl
     - data/mail:/home/data/mail
-    - /tmp/syslogdev:/dev
+    - /tmp/syslogdev/log:/dev/log
   links:
     - syslog
     - postgrey
