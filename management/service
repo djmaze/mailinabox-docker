@@ -9,6 +9,9 @@ if [ $COMMAND = "restart" ]; then
 fi
 
 case $SERVICE in
+opendkim)
+  HOST=opendkim
+  ;;
 esac
 
 if [[ $HOST && $SIGNAL ]]; then

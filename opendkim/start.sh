@@ -22,4 +22,4 @@ chmod go-rwx $STORAGE_ROOT/mail/dkim
 # FIXME Is this really needed?
 touch /etc/opendkim/{KeyTable,SigningTable}
 
-exec opendkim -f -x /etc/opendkim.conf -u opendkim -l
+exec $TOOLS_DIR/nsdw opendkim -f -x /etc/opendkim.conf -u opendkim -l
