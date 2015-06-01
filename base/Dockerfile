@@ -8,3 +8,4 @@ COPY tools $TOOLS_DIR
 
 ENV STORAGE_ROOT /home/data
 ENV DB_PATH ${STORAGE_ROOT}/mail/users.sqlite
+ENV NSDW_LISTEN_PORT 44777

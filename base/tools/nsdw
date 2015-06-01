@@ -1,0 +1,49 @@
+#!/bin/bash
+#
+# Network signal daemon wrapper
+# Wraps a daemon, taking kill signals on $NSDW_LISTEN_PORT and forwarding them to the daemon.
+set -m
+
+DAEMON_COMMAND=$*
+LISTEN_PORT=${NSDW_LISTEN_PORT:-44777}
+ALLOWED_SIGNALS=USR1
+
+# Start command
+${DAEMON_COMMAND} &
+DAEMON_PID=$!
+
+function wait_for_daemon_exit_and_exit {
+  wait ${DAEMON_PID}
+  rc=$?
+  echo "Wrapper: killing network listener ${NETWORK_LISTENER_PID}" >&2
+  kill ${NETWORK_LISTENER_PID}
+  exit $rc
+}
+
+function quit_child_process_with_signal {
+  echo Wrapper: Sending $1 to ${DAEMON_PID} >&2
+  kill -s $1 ${DAEMON_PID}
+  wait_for_daemon_exit_and_exit
+}
+
+# Trap signals and send to child
+trap "quit_child_process_with_signal 'INT'" SIGINT
+trap "quit_child_process_with_signal 'TERM'" SIGTERM
+
+# Wait for request over network, then send reload signal to process
+(
+  while [ 1 ]; do
+    SIGNAL=$(nc -l $LISTEN_PORT)
+    if [[ " ${ALLOWED_SIGNALS} " ==  *" $SIGNAL "* ]]; then
+      echo "Wrapper: Sending ${SIGNAL} to $DAEMON_PID" >&2
+      kill -s ${SIGNAL} $DAEMON_PID
+    else
+      echo "Wrapper: Ignoring signal $SIGNAL" >&2
+    fi
+  done
+) &
+NETWORK_LISTENER_PID=$!
+
+# Wait for child process to exit
+echo Wrapper: Waiting for child process ${DAEMON_PID} to exit >&2
+wait_for_daemon_exit_and_exit
